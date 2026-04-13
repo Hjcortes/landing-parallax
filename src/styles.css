@@ -22,19 +22,28 @@ section {
   padding: 80px 0;
 }
 
-.wrapper {
-  width: min(1200px, 92vw);
-}
-
+/* Modifica esto para que el Parallax tenga libertad de movimiento */
 .section-heading {
   margin-bottom: 48px;
+  overflow: visible; /* Asegura que el texto no se corte al moverse */
+  width: 100%;
+  position: relative;
+  z-index: 20; /* Mayor que el z-index de .content */
 }
 
 .section-heading h2 {
   font-size: clamp(3.5rem, 5.5vw, 6.5rem);
   line-height: 0.95;
-  max-width: 12ch;
-  color: #fff;
+  max-width: 100%; /* Cambiado de 12ch para evitar saltos de línea raros al moverlo */
+  white-space: nowrap; /* IMPORTANTE: Mantiene el título en una línea para el efecto lateral */
+  display: inline-block; /* Permite que las transformaciones de Parallax funcionen correctamente */
+  will-change: transform;
+}
+
+/* Ajuste para que el contenedor no limite el movimiento */
+.wrapper {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
 }
 
 .container {
@@ -67,17 +76,22 @@ section {
   grid-column: 2;
   z-index: 10;
   margin-left: -80px;
-  align-self: end;
+  
+  /* CLAVE: Empuja el contenido al fondo del área del grid */
+  align-self: end; 
   justify-self: start;
+  
   width: auto;
+  margin-bottom: -40px; /* Opcional: para que sobresalga un poco hacia abajo de la imagen */
 }
 
+/* Ajuste para la versión invertida (Reverse) */
 .reverse .content {
   grid-column: 1;
   margin-left: 0;
-  margin-right: -80px;
-  justify-self: end;
-  align-self: end;
+  margin-right: -800px;
+  justify-self: start;
+  align-self: end; /* Mantiene la posición abajo */
 }
 
 .imgBx,
@@ -108,12 +122,14 @@ section {
 }
 
 .content {
-  background: rgba(10, 11, 14, 0.95);
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 32px;
+  border-radius: 32px 32px 0 0;
   padding: 42px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+  border-bottom: 6px solid #4ac7ff;
 }
 
 .content p {

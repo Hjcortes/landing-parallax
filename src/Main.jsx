@@ -36,33 +36,46 @@ const sections = [
 
 export default function Main() {
   return (
-    <>
-      {sections.map((section, index) => (
-        <section key={index} className={index % 2 === 1 ? "reverse" : ""}>
-          <div className="wrapper">
-            <div className="section-heading">
-              <Parallax x={index % 2 === 0 ? [-80, 80] : [80, -80]} speed={-10}>
-                <h2>{section.title}</h2>
-              </Parallax>
-            </div>
+    <div className="parallax-container"> {/* Contenedor padre recomendado */}
+      {sections.map((section, index) => {
+        const isEven = index % 2 === 0;
+        
+        return (
+          <section key={index} className={!isEven ? "reverse" : ""}>
+            <div className="wrapper">
+              
+              <div className="section-heading">
+                {/* Aumentamos el rango de X: 
+                  Si es par, empieza en 100% (derecha) y va a -100% (izquierda)
+                */}
+                <Parallax 
+                  translateX={isEven ? ['100%', '-50%'] : ['-100%', '50%']} 
+                  opacity={[0, 1, 1, 0]} // Aparece y desaparece suavemente
+                  className="parallax-title"
+                >
+                  <h2>{section.title}</h2>
+                </Parallax>
+              </div>
 
-            <div className="container">
-              <Parallax y={[-40, 40]} speed={-10}>
-                <div className="imgBx">
-                  <img src={section.image} alt={section.title} />
-                </div>
-              </Parallax>
+              <div className="container">
+                <Parallax translateY={[-20, 20]} scale={[0.9, 1.1]}>
+                  <div className="imgBx">
+                    <img src={section.image} alt={section.title} />
+                  </div>
+                </Parallax>
 
-              <Parallax y={[30, -30]} speed={5}>
-                <div className="content">
-                  <p>{section.text}</p>
-                </div>
-              </Parallax>
+                <Parallax translateY={[480, -480]}>
+                  <div className="content">
+                    <p>{section.text}</p>
+                  </div>
+                </Parallax>
+              </div>
+
             </div>
-          </div>
-        </section>
-      ))}
-    </>
+          </section>
+        );
+      })}
+    </div>
   );
 }
 
