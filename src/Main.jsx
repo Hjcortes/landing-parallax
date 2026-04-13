@@ -41,7 +41,7 @@ export default function Main() {
         <section key={index} className={index % 2 === 1 ? "reverse" : ""}>
           <div className="wrapper">
             <div className="section-heading">
-              <Parallax x={index % 2 === 0 ? [-40, 40] : [40, -40]} speed={-5}>
+              <Parallax x={index % 2 === 0 ? [-80, 80] : [80, -80]} speed={-10}>
                 <h2>{section.title}</h2>
               </Parallax>
             </div>
