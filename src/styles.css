@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f0f12 0%, #1a1a1f 50%, #0f0f12 100%);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.wrapper {
+  width: min(1200px, 92vw);
+}
+
+.section-heading {
+  margin-bottom: 48px;
+}
+
+.section-heading h2 {
+  font-size: clamp(3.5rem, 5.5vw, 6.5rem);
+  line-height: 0.95;
+  max-width: 12ch;
+  color: #fff;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  gap: 0;
+  align-items: stretch;
+  justify-items: stretch;
+  position: relative;
+  min-height: 480px;
+}
+
+.reverse .container {
+  grid-auto-flow: dense;
+  direction: rtl;
+}
+
+.reverse .container > * {
+  direction: ltr;
+}
+
+.imgBx,
+.content {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.content {
+  grid-column: 2;
+  z-index: 10;
+  margin-left: -80px;
+  align-self: center;
+  justify-self: start;
+  width: auto;
+}
+
+.reverse .content {
+  grid-column: 1;
+  margin-left: 0;
+  margin-right: -80px;
+  justify-self: end;
+}
+
+.imgBx,
+.content {
+  flex: 1 1 360px;
+}
+
+.imgBx {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.1));
+}
+
+.imgBx img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.imgBx:hover img {
+  transform: scale(1.05);
+}
+
+.content {
+  background: rgba(10, 11, 14, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  padding: 42px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.content p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 38rem;
+  color: #e5e7eb;
+}
+
+@media (max-width: 950px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .imgBx,
+  .content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    grid-column: auto;
+    flex: 1 1 100%;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2.7rem, 10vw, 4rem);
+  }
+}
+
+@media (max-width: 680px) {
+  section {
+    padding: 60px 0;
+  }
+
+  .wrapper {
+    width: min(100%, 92vw);
+  }
+
+  .content,
+  .imgBx {
+    width: 100%;
+  }
+}
+
