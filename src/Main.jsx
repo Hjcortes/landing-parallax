@@ -1,10 +1,16 @@
 import { Parallax } from "react-scroll-parallax";
+import React, { useLayoutEffect, useState, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import "./styles.css";
 import bg1 from "./img/bg1.jpg";
 import bg2 from "./img/bg2.jpg";
 import bg3 from "./img/bg3.jpg";
 import bg4 from "./img/bg4.jpg";
 import bg5 from "./img/bg5.jpg";
+
+// Registrar el plugin fuera del componente
+gsap.registerPlugin(ScrollTrigger);
 
 const sections = [
   {
@@ -35,8 +41,40 @@ const sections = [
 ];
 
 export default function Main() {
+  // 1. Estado para detectar el ancho de pantalla en tiempo real
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMobile = windowWidth < 1024;
+
+  // 2. Animación de párrafos con GSAP
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".parrafo", {
+        y: isMobile ? 20 : 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: ".parrafo",
+          start: "top 95%",
+        }
+      });
+    });
+
+    return () => ctx.revert(); // Limpieza automática de GSAP
+  }, [isMobile]); // Se reinicia si cambia el tamaño de pantalla
+
   return (
-    <div className="parallax-container"> {/* Contenedor padre recomendado */}
+    <div className="parallax-container">
       {sections.map((section, index) => {
         const isEven = index % 2 === 0;
         
@@ -45,17 +83,21 @@ export default function Main() {
             <div className="wrapper">
               
               <div className="section-heading">
-                {/* Aumentamos el rango de X: 
-                  Si es par, empieza en 100% (derecha) y va a -100% (izquierda)
-                */}
-                <Parallax 
-                  translateX={isEven ? ['100%', '-50%'] : ['-100%', '50%']} 
-                  opacity={[0, 1, 1, 0]} // Aparece y desaparece suavemente
-                  className="parallax-title"
-                >
-                  <h2>{section.title}</h2>
-                </Parallax>
-              </div>
+  <Parallax 
+    translateX={isMobile 
+      ? [0, 0] 
+      : (isEven ? ['80%', '-40%'] : ['-80%', '40%'])
+    }
+    translateY={isMobile 
+      ? [60, -60] 
+      : [0, 0]
+    }
+    opacity={[0, 1, 1, 0]}
+    className="parallax-title"
+  >
+    <h2>{section.title}</h2>
+  </Parallax>
+</div>
 
               <div className="container">
                 <Parallax translateY={[-20, 20]} scale={[0.9, 1.1]}>
@@ -64,9 +106,10 @@ export default function Main() {
                   </div>
                 </Parallax>
 
-                <Parallax translateY={[480, -480]}>
+                <Parallax translateY={[80, -80]}>
                   <div className="content">
-                    <p>{section.text}</p>
+                    {/* Clase "parrafo" para GSAP y "text-white" para el color */}
+                    <p className="parrafo text-white">{section.text}</p>
                   </div>
                 </Parallax>
               </div>
@@ -78,4 +121,3 @@ export default function Main() {
     </div>
   );
 }
-

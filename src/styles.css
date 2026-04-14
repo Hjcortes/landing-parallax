@@ -22,13 +22,26 @@ section {
   padding: 80px 0;
 }
 
-/* Modifica esto para que el Parallax tenga libertad de movimiento */
 .section-heading {
+  /* TUS ORIGINALES (Mantener) */
   margin-bottom: 48px;
-  overflow: visible; /* Asegura que el texto no se corte al moverse */
+  overflow: visible; 
   width: 100%;
   position: relative;
-  z-index: 20; /* Mayor que el z-index de .content */
+  z-index: 20;
+
+  /* LA MEJORA (Añadir) */
+  display: flex;
+  /* En móvil queremos centrar el texto, en desktop lo dejamos al inicio */
+  justify-content: center; 
+}
+
+@media (min-width: 1024px) {
+  .section-heading {
+    /* En desktop, el texto suele fluir mejor desde la izquierda */
+    justify-content: flex-start;
+    margin-bottom: 0; /* Ajusta según prefieras el espaciado en desktop */
+  }
 }
 
 .section-heading h2 {
@@ -94,6 +107,12 @@ section {
   align-self: end; /* Mantiene la posición abajo */
 }
 
+.parrafo {
+  color: #ffffff !important; /* El !important asegura que nada lo sobreescriba */
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
 .imgBx,
 .content {
   flex: 1 1 360px;
@@ -154,10 +173,6 @@ section {
     grid-column: auto;
     flex: 1 1 100%;
   }
-
-  .section-heading h2 {
-    font-size: clamp(2.7rem, 10vw, 4rem);
-  }
 }
 
 @media (max-width: 680px) {
@@ -173,5 +188,182 @@ section {
   .imgBx {
     width: 100%;
   }
+
+    .imgBx {
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.1));
+  }
+
+  .imgBx img {
+    width: 100%;
+    height: 480px;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+}
+
+/* Mobile Primero */
+.parallax-title h2 {
+  font-size: 2.2rem;
+  line-height: 1.1;
+  text-align: center;
+  white-space: normal !important; /* Salto de línea en móvil */
+  color: white;
+  width: 100%;
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .parallax-title {
+    padding: 0;
+    display: block; /* Volvemos al flujo normal */
+  }
+
+  .parallax-title h2 {
+    font-size: 8vw;
+    white-space: nowrap !important; /* Una sola línea infinita */
+    text-align: left;
+    width: auto;
+  }
+}
+
+/* Estilo de enlace inspirado en Xel-Há */
+.menu-link-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 10px 0;
+}
+
+.menu-link-xelha {
+  text-decoration: none;
+  color: white;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.menu-link-xelha::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #6366f1; /* El color índigo que usamos, o el naranja de Xel-Há */
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.menu-link-xelha:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.menu-link-xelha:hover {
+  color: #a5b4fc; /* Un tono más claro al hacer hover */
+}
+
+/* Forzar el cursor en todo el menú */
+.menu-link {
+  cursor: pointer !important;
+}
+
+/* Efecto de hover similar a Xel-Há (Subrayado animado) */
+.nav-item-container {
+  position: relative;
+}
+
+.nav-link-text {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link-text::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #6366f1; /* Cambia al naranja #FF6B00 si prefieres el estilo Xel-Há */
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.nav-item-container:hover .nav-link-text::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Estilo para items con submenú (Flecha) */
+.has-submenu::after {
+  content: '▾';
+  font-size: 0.5em;
+  margin-left: 8px;
+  vertical-align: middle;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.has-submenu:hover::after {
+  transform: rotate(180deg);
+}
+
+/* Asegurar que los enlaces se sientan clickeables */
+.menu-link-xelha {
+  cursor: pointer !important;
+}
+
+/* Indicador de submenú (flecha) */
+.has-submenu::after {
+  content: ' ▾';
+  font-size: 0.6em;
+  opacity: 0.6;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.submenu-active.has-submenu::after {
+  transform: rotate(180deg);
+}
+
+.menu-link-xelha {
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+/* El subrayado */
+.menu-link-xelha::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #6366f1; /* Tu color Indigo */
+  transform: scaleX(0);
+  transform-origin: right; /* Empieza a desaparecer hacia la derecha */
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Solo se activa si el mouse está encima Y el menú no está cerrándose */
+.menu-link-xelha:hover::after {
+  transform: scaleX(1);
+  transform-origin: left; /* Aparece desde la izquierda */
+}
+
+/* Clase de seguridad para cuando el menú se cierra */
+.menu-closing .menu-link-xelha::after {
+  transform: scaleX(0) !important;
+  transition: transform 0.2s ease-out;
 }
 
