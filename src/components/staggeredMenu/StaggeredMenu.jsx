@@ -102,20 +102,20 @@ const StaggeredMenu = () => {
                 </div>
 
                 {/* Submenú Animado (Si existe) */}
-{item.links && activeSub === i && (
-  <div className="submenu-animate flex flex-col gap-2 mt-4"> {/* <-- Añadimos submenu-animate */}
-    {item.links.map((link, idx) => (
-      <a 
-        key={idx}
-        href={link.h}
-        onClick={toggleMenu}
-        className="text-gray-400 hover:text-white uppercase text-sm md:text-lg tracking-widest transition-colors cursor-pointer block py-1"
-      >
-        {link.n}
-      </a>
-    ))}
-  </div>
-)}
+                {item.links && activeSub === i && (
+                  <div className="submenu-animate flex flex-col gap-2 mt-4"> {/* <-- Añadimos submenu-animate */}
+                    {item.links.map((link, idx) => (
+                      <a 
+                        key={idx}
+                        href={link.h}
+                        onClick={toggleMenu}
+                        className="text-gray-400 hover:text-white uppercase text-sm md:text-lg tracking-widest transition-colors cursor-pointer block py-1"
+                      >
+                        {link.n}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </nav>

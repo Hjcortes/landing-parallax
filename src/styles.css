@@ -367,3 +367,44 @@ section {
   transition: transform 0.2s ease-out;
 }
 
+.hero-title span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Opcional: un degradado sutil para que el texto resalte más sobre la imagen */
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(15, 15, 18, 0.4), rgba(15, 15, 18, 0.9));
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums; /* Evita que los números "salten" al cambiar */
+}
+
+/* Opcional: una pequeña línea divisoria entre números */
+.hero-sub .flex:not(:last-child)::after {
+  content: ":";
+  position: absolute;
+  right: -20px;
+  top: 15%;
+  font-size: 2rem;
+  opacity: 0.2;
+}
+
+/* Esto ayuda a que el Hero siempre ocupe el alto de la pantalla correctamente */
+.parallax-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+.button-cta {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  padding: 1rem;
+}

@@ -2,6 +2,7 @@ import { Parallax } from "react-scroll-parallax";
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Countdown from './components/Countdown/Countdown';
 import "./styles.css";
 import bg1 from "./img/bg1.jpg";
 import bg2 from "./img/bg2.jpg";
@@ -73,32 +74,97 @@ export default function Main() {
     return () => ctx.revert(); // Limpieza automática de GSAP
   }, [isMobile]); // Se reinicia si cambia el tamaño de pantalla
 
+  const Hero = () => {
+  const heroRef = React.useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animación de entrada para el título y el subtítulo
+      gsap.from(".hero-title span", {
+        y: 100,
+        skewY: 7,
+        duration: 1.5,
+        stagger: 0.2,
+        ease: "power4.out",
+      });
+
+      gsap.from(".hero-sub", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        delay: 1,
+        ease: "power2.out",
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0f0f12]">
+      {/* Imagen de fondo con Parallax sutil */}
+      <Parallax translateY={[-20, 20]} className="absolute inset-0 z-0">
+        <div 
+          className="w-full h-[120%] bg-cover bg-center opacity-50"
+          style={{ backgroundImage: `url(${bg1})` }} // Puedes usar bg1 o una imagen especial
+        />
+      </Parallax>
+
+      {/* Contenido del Hero */}
+      <div className="relative z-10 text-center px-6">
+        <h1 className="hero-title text-5xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">
+          <div className="overflow-hidden inline-block"><span>Explora</span></div><br/>
+          <div className="overflow-hidden inline-block"><span>Lo Inesperado</span></div>
+        </h1>
+        <p className="hero-sub mt-6 text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto font-light tracking-wide">
+          Una experiencia inmersiva a través de paisajes digitales y movimiento fluido.
+        </p>
+        
+        {/* Botón Call to Action */}
+        <div className="hero-sub mt-10">
+          <button className="button-cta px-8 py-4 bg-white text-black rounded-full font-bold uppercase text-sm tracking-widest hover:bg-indigo-600 hover:text-white transition-colors duration-300">
+            Comenzar Viaje
+          </button>
+        </div>
+
+        <div className="w-full mx-auto my-8 h-40 min-h-[120px]">
+          <Countdown targetDate="2026-11-15T23:59:59" />
+        </div>
+      </div>
+
+      {/* Indicador de Scroll (Mouse animado) */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50">
+        <div className="w-[2px] h-12 bg-gradient-to-b from-white to-transparent animate-pulse" />
+      </div>
+    </section>
+  );
+};
+
   return (
     <div className="parallax-container">
+      <Hero />
       {sections.map((section, index) => {
         const isEven = index % 2 === 0;
-        
         return (
           <section key={index} className={!isEven ? "reverse" : ""}>
-            <div className="wrapper">
-              
+            <div className="wrapper">  
               <div className="section-heading">
-  <Parallax 
-    translateX={isMobile 
-      ? [0, 0] 
-      : (isEven ? ['80%', '-40%'] : ['-80%', '40%'])
-    }
-    translateY={isMobile 
-      ? [60, -60] 
-      : [0, 0]
-    }
-    opacity={[0, 1, 1, 0]}
-    className="parallax-title"
-  >
-    <h2>{section.title}</h2>
-  </Parallax>
-</div>
-
+                <Parallax 
+                  translateX={isMobile 
+                    ? [0, 0] 
+                    : (isEven ? ['80%', '-40%'] : ['-80%', '40%'])
+                  }
+                  translateY={isMobile 
+                    ? [60, -60] 
+                    : [0, 0]
+                  }
+                  opacity={[0, 1, 1, 0]}
+                  className="parallax-title"
+                >
+                  <h2>{section.title}</h2>
+                </Parallax>
+              </div>
+              
               <div className="container">
                 <Parallax translateY={[-20, 20]} scale={[0.9, 1.1]}>
                   <div className="imgBx">
