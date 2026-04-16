@@ -1,8 +1,9 @@
 import { Parallax } from "react-scroll-parallax";
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Countdown from './components/Countdown/Countdown';
+import Features from './components/Features/Features';
 import "./styles.css";
 import bg1 from "./img/bg1.jpg";
 import bg2 from "./img/bg2.jpg";
@@ -184,6 +185,7 @@ export default function Main() {
           </section>
         );
       })}
+      <Features />
     </div>
   );
 }
