@@ -11,11 +11,11 @@ const NewsLetter = () => {
       {/* Este es el contenedor que mx-auto centra si flex no estuviera arriba */}
       <div className="w-full max-w-4xl flex flex-col items-center">
         
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 py-4">
           <h2 className="text-5xl font-black uppercase tracking-tighter mb-4">
             Mantente en el viaje
           </h2>
-          <p className="text-gray-400 font-light max-w-md mx-auto">
+          <p className="text-gray-400 font-light mx-auto">
             Suscríbete para recibir actualizaciones exclusivas.
           </p>
         </div>

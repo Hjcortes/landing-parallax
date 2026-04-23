@@ -6,6 +6,7 @@ import Countdown from './components/Countdown/Countdown';
 import Features from './components/Features/Features';
 import VideoSection from './components/VideoSection/VideoSection';
 import NewsLetter from './components/NewsLetter/NewsLetter';
+import Sponsors from "./components/Sponsors/Sponsors";
 import "./styles.css";
 import bg1 from "./img/bg1.jpg";
 import bg2 from "./img/bg2.jpg";
@@ -190,6 +191,7 @@ export default function Main() {
       <Features />
       <VideoSection />
       <NewsLetter />
+      <Sponsors />
     </div>
   );
 }
